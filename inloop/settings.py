@@ -180,6 +180,7 @@ HUEY = {
 
 TESTRUNNER_OPTIONS = {
     "timeout": 120,
+    "max_output_length": 10000,
 }
 TESTRUNNER_IMAGE = "inloop-testrunner"
 
