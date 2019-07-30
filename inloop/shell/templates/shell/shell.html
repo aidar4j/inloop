@@ -1,0 +1,44 @@
+{% extends "base_site.html" %}
+{% load staticfiles %}
+
+{% block extrahead %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/syntax.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="static-tab-content">
+
+Here be dragons
+
+</div>
+
+{% endblock %}
+
+{% block extrabody %}
+
+<script>
+$(document).ready(function() {
+    let wsScheme = window.location.protocol === "https:" ? "wss" : "ws";
+    window.chatSocket = new WebSocket(wsScheme + "://" + window.location.host + "/ws/shell/");
+    window.chatSocket.onmessage = function(ev) {
+        let data = JSON.parse(ev.data);
+        console.log("WebSocket received data: ", data);
+    };
+
+    window.chatSocket.onclose = function(ev) {
+        console.log("WebSocket closed: ", ev);
+    };
+
+    window.chatSocket.onopen = function() {
+        console.log("WebSocket opened connection...");
+    };
+
+    window.chatSocket.onerror = function(err) {
+        console.error("WebSocket encountered error: ", err.message, "Closing WebSocket...");
+        window.chatSocket.close();
+    };
+});
+</script>
+
+{% endblock %}

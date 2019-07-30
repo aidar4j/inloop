@@ -18,6 +18,8 @@ redis = "*"
 gunicorn = "*"
 "psycopg2" = "*"
 setproctitle = "*"
+channels = "*"
+channels-redis = "*"
 
 [dev-packages]
 coverage = "*"

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "inloop.tasks",
     "inloop.testrunner",
     "inloop.gitload",
+    "inloop.shell",
 
     "django.contrib.admin",
     "django.contrib.auth",
@@ -53,6 +54,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.flatpages",
 
+    "channels",
     "constance",
     "django_extensions",
     "huey.contrib.djhuey",
@@ -74,6 +76,16 @@ LOGIN_URL = reverse_lazy("home")
 ROOT_URLCONF = "inloop.urls"
 APPEND_SLASH = True
 WSGI_APPLICATION = "inloop.wsgi.application"
+
+ASGI_APPLICATION = 'inloop.routing.application'
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
 
 if DEBUG and env.bool("DJDT", default=False):
     INSTALLED_APPS.append("debug_toolbar")
