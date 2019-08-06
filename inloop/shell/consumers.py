@@ -3,15 +3,14 @@ import asyncio
 from channels.generic.websocket import AsyncWebsocketConsumer
 
 
-loop = asyncio.new_event_loop()
-child_watcher = asyncio.get_child_watcher()
-child_watcher.attach_loop(loop)
-print(loop, child_watcher)
-
-
 class ShellConsumer(AsyncWebsocketConsumer):
 
     async def spawn_container(self):
+        #loop = asyncio.get_event_loop() or asyncio.new_event_loop()
+        #child_watcher = asyncio.get_child_watcher()
+        #child_watcher.attach_loop(loop)
+        #print(loop, child_watcher)
+
         # TODO: Use docker run -it openjdk /bin/jshell
         args = "echo \"Hello Shell Consumer\"".split()
         process = await asyncio.create_subprocess_exec(
