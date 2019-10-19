@@ -122,7 +122,7 @@ class Solution(models.Model):
         # derive the directory from the first associated SolutionFile
         solution_file = self.solutionfile_set.first()
         if not solution_file:
-            raise AssertionError("Empty solution: %r" % self)
+            raise ValueError("Empty solution: %r" % self)
         return solution_file.absolute_path.parent
 
     def get_absolute_url(self):
