@@ -1,0 +1,20 @@
+{% extends 'admin/change_list.html' %}
+
+{% block object-tools %}
+
+<script>
+  $.ajax({
+    url: window.location.origin + window.location.pathname + "statistics/",
+    type: "post",
+    headers: {"X-CSRFToken": "{{ csrf_token }}" },
+    data: JSON.stringify({{ filter|safe }}),
+    datatype: "json",
+    success: function (response) {
+      console.log(response)
+    }
+  });
+</script>
+
+{{ block.super }}
+
+{% endblock %}
