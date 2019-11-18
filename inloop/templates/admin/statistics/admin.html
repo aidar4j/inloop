@@ -3,16 +3,14 @@
 {% block object-tools %}
 
 <script>
-  $.ajax({
-    url: window.location.origin + window.location.pathname + "statistics/",
-    type: "post",
-    headers: {"X-CSRFToken": "{{ csrf_token }}" },
-    data: JSON.stringify({{ filter|safe }}),
-    datatype: "json",
-    success: function (response) {
-      console.log(response)
-    }
-  });
+  var request = new XMLHttpRequest();
+  request.open("POST", window.location.origin + window.location.pathname + "statistics/", true);
+  request.setRequestHeader("Content-type", "application/json");
+  request.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+  request.onreadystatechange = function() {
+    console.log(request.responseText);
+  };
+  request.send(JSON.stringify({{ data|safe }}));
 </script>
 
 {{ block.super }}

@@ -26,6 +26,11 @@ class StatisticsAdmin(admin.ModelAdmin):
     def changelist_view(self, request, extra_context=None):
         if not extra_context:
             extra_context = {}
-        extra_context["filter"] = request.GET.dict()
+        extra_context["data"] = {
+            "get_kwargs": request.GET.dict(),
+            "ordering": self.get_ordering(request),
+            "paginator_kwargs": {
+                "per_page": self.list_per_page,
+            }
+        }
         return super().changelist_view(request, extra_context=extra_context)
-
